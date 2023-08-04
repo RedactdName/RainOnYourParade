@@ -1,1 +1,2 @@
 # SuperPartyProjectTime
+basic test
