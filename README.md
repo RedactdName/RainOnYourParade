@@ -1,2 +1,2 @@
 # SuperPartyProjectTime
-basic test
+This is for our first project. 
