@@ -18,12 +18,15 @@ let lon = 0
 let weatherByCoords = 'https://api.openweathermap.org/data/2.5/forecast?lat='+ lat +'&lon='+ lon +'&appid='+ openWeatherAPIKey + '&units=imperial'
 let weatherByCity = 'https://api.openweathermap.org/data/2.5/forecast?q='+ cityName +'&appid='+ openWeatherAPIKey
 
+//variables to grab //recents changed
+const startDateContainer = document.getElementById("start-date")
+const endDateContainer = document.getElementById("end-date")
+const cityContainer = document.getElementById("city")
+const searchButton = document.getElementById("search-button")
 
 //function to initiate fetch by city
 function fetchEventsByCity(){
-//grabbing the city by URL
-//get the data from the form that the user inputs
-//change variables to equal that form input
+
 fetch(seatGeekSearchByCityURL)
 .then(function(response){
    return response.json()
@@ -33,4 +36,12 @@ fetch(seatGeekSearchByCityURL)
 })
 }
 
-fetchEventsByCity(cityName)
+// fetchEventsByCity(cityName) //recently changed
+searchButton.addEventListener('click', function() {
+    startDate = startDateContainer.value //all these are new
+    endDate = endDateContainer.value
+    city = cityContainer.value
+
+    fetchEventsByCity()
+    
+})
