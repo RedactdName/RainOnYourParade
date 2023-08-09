@@ -43,5 +43,6 @@ searchButton.addEventListener('click', function() {
     city = cityContainer.value
 
     fetchEventsByCity()
+    console.log(startDate, endDate, city)
     
 })
