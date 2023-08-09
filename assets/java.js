@@ -1,8 +1,11 @@
 //Variables required for seatGeek
+let state = 'CO'
 let city = 'denver'
+let perPage = 10
+let page = 1
 const clientId = 'client_id=MzU1MTEzMTF8MTY5MTQ1ODY0Mi45OTk0NA'
 const clientSecret = 'client_secret=8eab9cae7143c435b6897a8ee23b044cc8152e61df06a4568d536acb71b31a12`'
-const seatGeekSearchByCityURL = `https://api.seatgeek.com/2/events?venue.city=${city}&${clientId}`
+const seatGeekSearchByCityURL = `https://api.seatgeek.com/2/events?venue.city=${city}&${clientId}&per_page=${perPage}&page=${page}`
 const seatGeek = `https://api.seatgeek.com/2/events?${clientId}&${clientSecret}`
 
 //Variables required for Open Weather
@@ -27,4 +30,4 @@ fetch(seatGeekSearchByCityURL)
 })
 }
 
-fetchEvents()
+fetchEventsByCity(cityName)
