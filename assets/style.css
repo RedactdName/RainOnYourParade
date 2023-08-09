@@ -1,0 +1,435 @@
+.header {
+    color: darkblue;
+}
+
+h1 {
+    font-size: 4em;
+    text-align: center;
+    padding-top: 50px;
+    color: white;
+    font-family: "agency fb";
+    margin: 0;
+}
+
+/*added cloud icon*/
+.cloud {
+    border-radius: 25px;
+    position: absolute;
+    top: 5%;
+    left: 2%;
+    width: 150px;
+    height: 50px;
+    background: #cdedf8;
+}
+
+.cloud:nth-child(2) {
+    left: 200px;
+    width: 100px;
+    height: 30px;
+    background: #cdedf8;
+    opacity: 1;
+    animation: cloud 8s linear infinite;
+}
+
+.cloud::after,
+.cloud::before {
+    content: '';
+    display: block;
+    background: #cdedf8;
+    border-radius: 50%;
+    position: absolute;
+
+}
+
+.cloud:nth-child(2)::after,
+.cloud:nth-child(2)::before {
+    content: '';
+    display: block;
+    background: #cdedf8;
+    border-radius: 50%;
+    position: absolute;
+
+}
+
+.cloud::after {
+    width: 80px;
+    height: 80px;
+    left: 45px;
+    top: -45px;
+}
+
+.cloud::before {
+    width: 60px;
+    height: 60px;
+    top: -10px;
+    left: 0;
+}
+
+.cloud:nth-child(2)::after {
+    width: 50px;
+    height: 50px;
+    left: 35px;
+    top: -30px;
+}
+
+.cloud:nth-child(2)::before {
+    width: 40px;
+    height: 40px;
+    top: -10px;
+    left: 0px;
+}
+
+@keyframes cloud {
+    0% {
+        opacity: 0;
+    }
+
+    50% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 0;
+        transform: scale(0.8) translateX(-200%);
+    }
+}
+
+/*End cloud icon*/
+
+
+/*start rain animation*/
+.rain {
+    width: 6px;
+    height: 40px;
+    background: linear-gradient(transparent, white);
+    position: absolute;
+    left: 10%;
+    top: 60px;
+    border-radius: 2px;
+    animation: rainning 2s infinite;
+}
+
+/*raindrop 1*/
+.rain:nth-child(2) {
+    height: 20px;
+    left: 7%;
+    top: 60px;
+}
+
+/*raindrop 2*/
+.rain:nth-child(3) {
+    height: 50px;
+    left: 4%;
+    top: 50px;
+}
+
+/*raindrop 3*/
+.rain:nth-child(4) {
+    height: 25px;
+    left: 2%;
+    top: 55px;
+}
+
+@keyframes rainning {
+    100% {
+        top: 200px;
+    }
+}
+
+/*end raindrop animation*/
+
+body {
+    background-color: lightblue;
+    color: black;
+
+}
+
+/*nav bar goes here*/
+nav {
+    margin: 27px auto 0;
+
+    position: relative;
+    width: 100%;
+    height: 100%;
+    background-color: #34495e;
+    border-radius: 8px;
+    font-size: 0;
+    display: flex;
+    justify-content: center;
+}
+
+nav a {
+    line-height: 50px;
+    height: 100%;
+    font-size: 15px;
+    display: inline-block;
+    position: relative;
+    z-index: 1;
+    text-decoration: none;
+    text-transform: uppercase;
+    text-align: center;
+    color: white;
+    cursor: pointer;
+}
+
+/*add nav bar animation*/
+nav .animation {
+    position: absolute;
+    height: 100%;
+    top: 0;
+    z-index: 0;
+    transition: all .5s ease 0s;
+    border-radius: 8px;
+}
+
+a:nth-child(1) {
+    width: 100px;
+}
+
+a:nth-child(2) {
+    width: 110px;
+}
+
+a:nth-child(3) {
+    width: 100px;
+}
+
+a:nth-child(4) {
+    width: 160px;
+}
+
+a:nth-child(5) {
+    width: 120px;
+}
+
+/*add hover colors*/
+nav .start-home,
+a:nth-child(1):hover~.animation {
+    width: 100px;
+    left: 0;
+    background-color: #1abc9c;
+}
+
+nav .start-about,
+a:nth-child(2):hover~.animation {
+    width: 110px;
+    left: 100px;
+    background-color: #e74c3c;
+}
+
+nav .start-blog,
+a:nth-child(3):hover~.animation {
+    width: 100px;
+    left: 210px;
+    background-color: #3498db;
+}
+
+nav .start-portefolio,
+a:nth-child(4):hover~.animation {
+    width: 160px;
+    left: 310px;
+    background-color: #9b59b6;
+}
+
+nav .start-contact,
+a:nth-child(5):hover~.animation {
+    width: 120px;
+    left: 470px;
+    background-color: #e67e22;
+}
+
+/*end hover colors*/
+
+/*added wrap to display nv bar across page*/
+.wrap {
+    display: block;
+    -webkit-box-shadow: 0 0 70px #fff;
+    -moz-box-shadow: 0 0 70px #fff;
+    box-shadow: 0 0 70px #fff;
+    margin-top: 40px;
+}
+
+/*Add unlisted items here*/
+ul {
+    list-style: none;
+    position: relative;
+    text-align: left;
+}
+
+/*listed items here*/
+
+li {
+    float: left;
+}
+
+/* clear and floats */
+ul:after {
+    clear: both;
+}
+
+ul:before,
+ul:after {
+    content: " ";
+    display: table;
+}
+
+ul.primary li a {
+    display: block;
+    padding: 20px 30px;
+    border-right: 1px solid #3D3D3D;
+}
+
+ul.primary li:last-child a {
+    border-right: none;
+}
+
+ul.primary li a:hover {
+
+    color: #000;
+}
+
+/* sub drop down list */
+ul.sub {
+    position: absolute;
+    z-index: 200;
+    box-shadow: 2px 2px 0 #BEBEBE;
+    width: 35%;
+    display: none;
+}
+
+ul.sub li {
+    float: none;
+    margin: 0;
+}
+
+ul.sub li a {
+    border-bottom: 1px dotted #ccc;
+    border-right: none;
+    color: #000;
+    padding: 15px 30px;
+}
+
+ul.sub li:last-child a {
+    border-bottom: none;
+}
+
+ul.sub li a:hover {
+    color: #000;
+    background: #eeeeee;
+}
+
+/* sub display*/
+/*makes dropdown list function*/
+ul.primary li:hover ul {
+    display: block;
+    background: #fff;
+}
+
+
+ul.primary li:hover>a {
+    color: #000;
+}
+
+@media only screen and (max-width: 600px) {
+    .decor {
+        padding: 3px;
+    }
+
+    li {
+        float: none;
+    }
+
+
+}
+
+
+/*add animation here*/
+.cup {
+    position: absolute;
+    top: 75%;
+    left: 6%;
+    transform: translate(-50%, -50%);
+    width: 150px;
+    height: 180px;
+    border: 6px solid #262626;
+    border-top: 2px solid transparent;
+    border-radius: 15px;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    background: url(https://image.ibb.co/fmHm66/wave.png);
+    background-position: 0px 350px;
+    background-repeat: repeat-x;
+    animation: filling 10s ease-in-out infinite;
+    box-shadow: 0 0 0 6px #fff, 0 20px 35px rgba(0, 0, 0, 1);
+}
+
+.cup:before {
+    content: '';
+    position: absolute;
+    width: 50px;
+    height: 80px;
+    border: 6px solid #fff;
+    right: -57px;
+    top: 30px;
+    border-top-right-radius: 35px;
+    border-bottom-right-radius: 35px;
+}
+
+@keyframes filling {
+    50% {
+        background-position: 3000px 0px;
+    }
+
+    100% {
+        background-position: 6000px 350px;
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+body {
+    font-size: 12px;
+    font-family: sans-serif;
+    background: #2c3e50;
+}
+
+h1 {
+    text-align: center;
+    margin: 40px 0 40px;
+    text-align: center;
+    font-size: 30px;
+    color: #ecf0f1;
+    text-shadow: 2px 2px 4px #000000;
+    font-family: 'Cherry Swash', cursive;
+}
+
+p {
+    position: absolute;
+    bottom: 20px;
+    width: 100%;
+    text-align: center;
+    color: #ecf0f1;
+    font-family: 'Cherry Swash', cursive;
+    font-size: 16px;
+}
+
+span {
+    color: #2BD6B4;
+}
