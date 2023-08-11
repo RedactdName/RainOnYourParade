@@ -10,6 +10,7 @@ const clientSecret = 'client_secret=8eab9cae7143c435b6897a8ee23b044cc8152e61df06
 const seatGeekSearchByCityURL = `https://api.seatgeek.com/2/events?venue.city=${city}&${clientId}&per_page=${perPage}&page=${page}&datetime_utc.gte=${startDate}&datetime_utc.lte=${endDate}`
 const seatGeek = `https://api.seatgeek.com/2/events?${clientId}&${clientSecret}`
 
+
 //Variables required for Open Weather
 const openWeatherAPIKey = '853c7e45dec1706d5f746a46f8d87cf8'
 let cityName = ''
@@ -35,6 +36,12 @@ fetch(seatGeekSearchByCityURL)
     console.log(data)
 })
 }
+
+/*add event listener for calendar*/
+// $("#datepicker").change(function() {
+//     var date = $(this).datepicker("getDate");
+//     $("#placeholder").text(date);
+// });
 
 // fetchEventsByCity(cityName) //recently changed
 searchButton.addEventListener('click', function() {
