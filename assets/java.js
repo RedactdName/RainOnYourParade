@@ -112,6 +112,7 @@ function populateWeather(data) {
     let description = data.weather[0].description;
     let icon = data.weather[0].icon;
 
+    const currentWeatherContainer = document.getElementById('current-weather-container')
     const pEl = document.createElement('p');
     const pEl2 = document.createElement('p');
     const ulEl = document.createElement('ul');
@@ -148,7 +149,7 @@ function populateWeather(data) {
 }
 
 //gets 5 day forcast
-function get5day(lat, lon) {
+function get5day(lat, lon, eventTime) {
     let urlByLatLon = `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${apiKey}`;
     
     fetch(urlByLatLon)
@@ -156,11 +157,10 @@ function get5day(lat, lon) {
         return response.json();
     })
     .then(function(data) {
-        let forecastContainer = document.getElementById('forecast-container');
-        forecastContainer.innerHTML = ''; 
+        const currentWeatherContainer = document.getElementById('current-weather-container')
+        currentWeatherContainer.innerHTML = ''; 
         
-        for(let i = 0; i < data.list.length; i += 8) {
-            let forecastItem = data.list[i];
+            let forecastItem = data.list[eventTime];
             let forecastDateTime = new Date(forecastItem.dt * 1000);
             
             const forecastItemContainer = document.createElement('div');
@@ -192,8 +192,6 @@ function get5day(lat, lon) {
             liEl5.textContent = `Description: ${forecastItem.weather[0].description}`;
             ulEl.appendChild(liEl5);
 
-            ulEl.setAttribute("id", cityName )
-
             forecastItemContainer.appendChild(ulEl);
 
             const iconUrl = `https://openweathermap.org/img/wn/${forecastItem.weather[0].icon}@2x.png`;
@@ -201,9 +199,21 @@ function get5day(lat, lon) {
             imgEl.setAttribute("src", iconUrl);
             forecastItemContainer.appendChild(imgEl);
 
-            forecastContainer.appendChild(forecastItemContainer);
-        }
+            currentWeatherContainer.appendChild(forecastItemContainer);
+        
     });
 }
+function getWeatherByDate(lat, lon, date){
+    // Date in the `YYYY-MM-DD` format for which data is requested. Date available from 1979-01-02 up to the previous day before the current date.
+    fetch(`https://api.openweathermap.org/data/3.0/onecall/day_summary?lat=${lat}&lon=${lon}&date=${date}&appid=${openWeatherAPIKey}`)
+    .then(function(response){
+       return response.json
+    }).then(function(data){
+        console.log(data)
+     })
+
+}
+
+
 
 //To get weather info rightreturn date url datetime_local
