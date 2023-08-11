@@ -64,8 +64,19 @@ searchButton.addEventListener('click', function(event) {
 })
 function populateEvents(data)
 {
-
+    const ulEl = document.createElement('ul')
+    const weatherContainer = document.getElementById('weather-container')
+    
     //for loop
+ for (let i = 0; i < data.events.length; i++) {
+    let eventName = data.events[i].title;
+    let liEl = document.createElement('li')
+    liEl.textContent = eventName
+    ulEl.appendChild(liEl)
+        
+
+    weatherContainer.appendChild(ulEl)
+ }
     //get the events name
     //get the events date
     //put it on the page in a ul
