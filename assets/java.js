@@ -64,8 +64,19 @@ searchButton.addEventListener('click', function(event) {
 })
 function populateEvents(data)
 {
+
+    //for loop
+    //get the events name
+    //get the events date
+    //put it on the page in a ul
+    //assign id using name of event
+    //setAttribute("id", eventName + datetime_local) set class to bulma values for style
     console.log(data)
 }
+
+//need event listner
+//need that event listener to get ID of item clicked
+//when clicked we get that info from it, 
 
 
 //To get weather info rightreturn date url datetime_local
