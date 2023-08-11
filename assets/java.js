@@ -78,5 +78,132 @@ function populateEvents(data)
 //need that event listener to get ID of item clicked
 //when clicked we get that info from it, 
 
+//gets coordinates from city name
+function getCoords(cityName) {
+    fetch(`http://api.openweathermap.org/geo/1.0/direct?q=${cityName}&appid=${openWeatherAPIKey}`)
+        .then(function(response) {
+            return response.json();
+        })
+        .then(function(data) {
+            let lat = data[0].lat;
+            let lon = data[0].lon;
+            getTodaysWeather(lat, lon);
+            get5day(lat, lon);
+        });
+}
+//gets todays weather
+function getTodaysWeather(lat, lon) {
+    fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${apiKey}&units=imperial`)
+    .then(function(response) {
+        return response.json();
+    })
+    .then(function(data) {
+        console.log(data);
+        populateWeather(data);
+    });
+}
+
+//populates weather information
+function populateWeather(data) {
+    let currentTemp = data.main.temp;
+    let humidity = data.main.humidity;
+    let feelsLike = data.main.feels_like;
+    let windspeed = data.wind.speed;
+    let description = data.weather[0].description;
+    let icon = data.weather[0].icon;
+
+    const pEl = document.createElement('p');
+    const pEl2 = document.createElement('p');
+    const ulEl = document.createElement('ul');
+    const liEl1 = document.createElement('li');
+    const liEl2 = document.createElement('li');
+    const liEl3 = document.createElement('li');
+    const liEl4 = document.createElement('li');
+
+    pEl.textContent = currentTemp;
+    pEl2.textContent = cityName;
+    currentWeatherContainer.appendChild(pEl);
+    currentWeatherContainer.appendChild(pEl2)
+
+    liEl1.textContent = `Humidity: ${humidity}`;
+    ulEl.appendChild(liEl1);
+
+    liEl2.textContent = `Feels Like: ${feelsLike}`;
+    ulEl.appendChild(liEl2);
+
+    liEl3.textContent = `Wind Speed: ${windspeed}`;
+    ulEl.appendChild(liEl3);
+
+    liEl4.textContent = `Description: ${description}`;
+    ulEl.appendChild(liEl4);
+
+    ulEl.setAttribute("id", cityName )
+    
+    currentWeatherContainer.appendChild(ulEl);
+
+    let iconUrl = `https://openweathermap.org/img/wn/${icon}@2x.png`;
+    const imgEl = document.createElement('img');
+    imgEl.setAttribute("src", iconUrl);
+    currentWeatherContainer.appendChild(imgEl);
+}
+
+//gets 5 day forcast
+function get5day(lat, lon) {
+    let urlByLatLon = `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${apiKey}`;
+    
+    fetch(urlByLatLon)
+    .then(function(response) {
+        return response.json();
+    })
+    .then(function(data) {
+        let forecastContainer = document.getElementById('forecast-container');
+        forecastContainer.innerHTML = ''; 
+        
+        for(let i = 0; i < data.list.length; i += 8) {
+            let forecastItem = data.list[i];
+            let forecastDateTime = new Date(forecastItem.dt * 1000);
+            
+            const forecastItemContainer = document.createElement('div');
+            forecastItemContainer.classList.add('forecast-item');
+            
+            const pDateTime = document.createElement('p');
+            pDateTime.textContent = forecastDateTime.toLocaleString() + ` ${cityName}`
+            forecastItemContainer.appendChild(pDateTime);
+            
+            const ulEl = document.createElement('ul');
+            
+            const liEl1 = document.createElement('li');
+            liEl1.textContent = `Temperature: ${forecastItem.main.temp}`;
+            ulEl.appendChild(liEl1);
+
+            const liEl2 = document.createElement('li');
+            liEl2.textContent = `Humidity: ${forecastItem.main.humidity}`;
+            ulEl.appendChild(liEl2);
+
+            const liEl3 = document.createElement('li');
+            liEl3.textContent = `Feels Like: ${forecastItem.main.feels_like}`;
+            ulEl.appendChild(liEl3);
+
+            const liEl4 = document.createElement('li');
+            liEl4.textContent = `Wind Speed: ${forecastItem.wind.speed}`;
+            ulEl.appendChild(liEl4);
+
+            const liEl5 = document.createElement('li');
+            liEl5.textContent = `Description: ${forecastItem.weather[0].description}`;
+            ulEl.appendChild(liEl5);
+
+            ulEl.setAttribute("id", cityName )
+
+            forecastItemContainer.appendChild(ulEl);
+
+            const iconUrl = `https://openweathermap.org/img/wn/${forecastItem.weather[0].icon}@2x.png`;
+            const imgEl = document.createElement('img');
+            imgEl.setAttribute("src", iconUrl);
+            forecastItemContainer.appendChild(imgEl);
+
+            forecastContainer.appendChild(forecastItemContainer);
+        }
+    });
+}
 
 //To get weather info rightreturn date url datetime_local
