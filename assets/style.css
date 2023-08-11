@@ -172,6 +172,7 @@ nav a {
     cursor: pointer;
 }
 
+
 /*add nav bar animation*/
 nav .animation {
     position: absolute;
@@ -384,6 +385,8 @@ ul.primary li:hover>a {
         background-position: 6000px 350px;
     }
 }
+
+
 
 
 
