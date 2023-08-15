@@ -74,14 +74,19 @@ function populateEvents(data) {
         let eventDateTime = data.events[i].datetime_local
 
         //creating the list item and adding text content
-        let buttonEl = document.createElement('button');
-        buttonEl.textContent = eventName;
-        buttonEl.setAttribute('class', 'searched-events')
+        let h1El = document.createElement('h1');
+        let h2El = document.createElement('h2');
+        h1El.textContent = eventName;
+        h1El.setAttribute('class', 'event-name')
+        h2El.textContent = eventDateTime.split('T')
+        h2El.setAttribute('class', 'event-date-time')
+        h1El.setAttribute('class', 'searched-events')
         //adding the list item to the unordered list, we may change this later to be a section of its own instead of list item
-        sectionEl.appendChild(buttonEl);
+        sectionEl.appendChild(h1El);
+        sectionEl.appendChild(h2El)
 
         // adding event listner to each of the li's.
-        buttonEl.addEventListener('click', function () {
+        h1El.addEventListener('click', function () {
             //calling getcoords function for each event potentially we could simplify to only city, or expand to exact venue but IDK how to do that
             return getCoords(data.events[i].venue.city, eventDateTime)
         })
@@ -133,7 +138,7 @@ function getWeatherByDate(lat, lon, eventDateTime) {
             }
             //logging what we got
             if (weatherForEventHour) {
-                populateWeather(weatherForEventHour);
+                console.log(weatherForEventHour);
             } else {
                 //if there isnt any data
                 console.log("Couldn't find weather data for the specified event hour.");
