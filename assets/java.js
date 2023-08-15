@@ -10,13 +10,14 @@ const startDateContainer = document.getElementById("start-date")
 const endDateContainer = document.getElementById("end-date")
 const cityContainer = document.getElementById("city")
 const searchButton = document.getElementById("search-button")
+let page = 1
 
 //function to initiate fetch by city
 function fetchEventsByCity() {
+
     //getting values from containers
     let city = cityContainer.value
     let perPage = 5
-    let page = 1
     let startDate = startDateContainer.value
     let endDate = endDateContainer.value
     //setting null check
@@ -38,7 +39,18 @@ function fetchEventsByCity() {
             // calling populate events function with the jsoned data
             populateEvents(data)
         })
-    }
+
+    const paginationNext = document.querySelector(".pagination-next")
+    const paginationPrevious = document.querySelector(".pagination-previous")
+    paginationNext.addEventListener("click", function (event) {
+        page++
+        fetchEventsByCity()
+    })
+    paginationPrevious.addEventListener('click', function (event) {
+        page--
+        fetchEventsByCity()
+    })
+}
 // the event listner for the search button
 searchButton.addEventListener('click', function (event) {
     event.preventDefault()
@@ -141,13 +153,3 @@ function extractHours(dateTime) {
     //returning the hours of the dt
     return dt.getHours();
 }
-
-
-
-
-
-
-
-
-
-
