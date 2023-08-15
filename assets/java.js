@@ -77,6 +77,8 @@ function populateEvents(data)
 
     weatherContainer.appendChild(ulEl)
  }
+//  var location = onclick("click", searchButton)
+//  localStorage.setItem(location, )
     //get the events name
     //get the events date
     //put it on the page in a ul
