@@ -38,7 +38,7 @@ function fetchEventsByCity() {
             // calling populate events function with the jsoned data
             populateEvents(data)
         })
-        
+
 }
 
 // the event listner for the search button
@@ -54,7 +54,7 @@ searchButton.addEventListener('click', function (event) {
 
 //puts events on page
 function populateEvents(data) {
-    const ulEl = document.createElement('ul');
+    const sectionEl = document.createElement('section');
     const weatherContainer = document.getElementById('weather-container');
 
     //getting all needed info from the events
@@ -64,13 +64,14 @@ function populateEvents(data) {
         let eventDateTime = data.events[i].datetime_local
 
         //creating the list item and adding text content
-        let liEl = document.createElement('li');
-        liEl.textContent = eventName;
+        let buttonEl = document.createElement('button');
+        buttonEl.textContent = eventName;
+        buttonEl.setAttribute('class', 'searched-events')
         //adding the list item to the unordered list, we may change this later to be a section of its own instead of list item
-        ulEl.appendChild(liEl);
+        sectionEl.appendChild(buttonEl);
 
         // adding event listner to each of the li's.
-        liEl.addEventListener('click', function () {
+        buttonEl.addEventListener('click', function () {
             //calling getcoords function for each event potentially we could simplify to only city, or expand to exact venue but IDK how to do that
             return getCoords(data.events[i].venue.city, eventDateTime)
         })
@@ -78,7 +79,7 @@ function populateEvents(data) {
         console.log(data.events[i].datetime_local);
     }
     //appending the unoredered list to the weather container, need britanny to help me make it look good
-    weatherContainer.appendChild(ulEl);
+    weatherContainer.appendChild(sectionEl);
 }
 //gets coordinates from city name
 function getCoords(cityName, eventDateTime) {
@@ -122,7 +123,7 @@ function getWeatherByDate(lat, lon, eventDateTime) {
             }
             //logging what we got
             if (weatherForEventHour) {
-                console.log(weatherForEventHour);
+                populateWeather(weatherForEventHour);
             } else {
                 //if there isnt any data
                 console.log("Couldn't find weather data for the specified event hour.");
@@ -137,3 +138,12 @@ function extractHours(dateTime) {
     //returning the hours of the dt
     return dt.getHours();
 }
+
+
+
+
+
+
+
+
+
