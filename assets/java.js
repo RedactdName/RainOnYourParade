@@ -67,7 +67,7 @@ function populateEvents(data) {
         h1El.textContent = eventName;
         h1El.setAttribute('class', 'event-name')
         h2El.textContent = eventDateTime.split('T')
-        h1El.setAttribute('class', 'event-date-time')
+        h2El.setAttribute('class', 'event-date-time')
         h1El.setAttribute('class', 'searched-events')
         //adding the list item to the unordered list, we may change this later to be a section of its own instead of list item
         sectionEl.appendChild(h1El);
