@@ -137,11 +137,3 @@ function extractHours(dateTime) {
     //returning the hours of the dt
     return dt.getHours();
 }
-
-
-
-
-
-
-
-
