@@ -15,7 +15,7 @@ const searchButton = document.getElementById("search-button")
 function fetchEventsByCity() {
     //getting values from containers
     let city = cityContainer.value
-    let perPage = 30
+    let perPage = 5
     let page = 1
     let startDate = startDateContainer.value
     let endDate = endDateContainer.value
@@ -38,6 +38,7 @@ function fetchEventsByCity() {
             // calling populate events function with the jsoned data
             populateEvents(data)
         })
+        
 }
 
 // the event listner for the search button
@@ -136,3 +137,31 @@ function extractHours(dateTime) {
     //returning the hours of the dt
     return dt.getHours();
 }
+//gets coordinates from city name
+function getCoords(cityName, eventDateTime) {
+    //fetching the coords, passing eventDateTime to push through in a seperate function
+    fetch(`http://api.openweathermap.org/geo/1.0/direct?q=${cityName}&appid=${openWeatherAPIKey}`)
+        .then(function (response) {
+            return response.json();
+        })
+        .then(function (data) {
+            //only calling most popular option, maybe play with later to get multiple city options
+            let lat = data[0].lat;
+            let lon = data[0].lon;
+            //calling function now that I am getting the data I need
+            getWeatherByDate(lat, lon, eventDateTime);
+        });
+}
+// Updated function to get weather by date and time
+function getWeatherByDate(lat, lon, eventDateTime) {
+    //fetching by coords
+    fetch(`https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&exclude=current,minutely,daily,alerts&appid=${openWeatherAPIKey}&units=imperial`)
+        .then(function (response) {
+            return response.json();
+        }).then(function (data) {
+            // getting hours from event by calling function
+            const eventHour = extractHours(eventDateTime);
+
+
+            // Loop through each hour's data to find a match
+        })};
