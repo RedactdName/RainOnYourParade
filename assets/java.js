@@ -15,7 +15,7 @@ const searchButton = document.getElementById("search-button")
 function fetchEventsByCity() {
     //getting values from containers
     let city = cityContainer.value
-    let perPage = 30
+    let perPage = 5
     let page = 1
     let startDate = startDateContainer.value
     let endDate = endDateContainer.value
@@ -38,6 +38,7 @@ function fetchEventsByCity() {
             // calling populate events function with the jsoned data
             populateEvents(data)
         })
+        
 }
 
 // the event listner for the search button
