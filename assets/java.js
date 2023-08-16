@@ -65,7 +65,7 @@ searchButton.addEventListener('click', function (event) {
 //puts events on page
 function populateEvents(data) {
 
-
+eventContainerSectionEl.setAttribute('class','event-holder')
     //getting all needed info from the events
     for (let i = 0; i < data.events.length; i++) {
         //setting name and time
@@ -88,7 +88,11 @@ function populateEvents(data) {
         // adding event listner to each of the li's.
         h1El.addEventListener('click', function () {
             //calling getcoords function for each event potentially we could simplify to only city, or expand to exact venue but IDK how to do that
+            while (weatherContainerSectionEl.firstChild) {
+                weatherContainerSectionEl.removeChild(weatherContainerSectionEl.firstChild);
+            }
             return getCoords(data.events[i].venue.city, eventDateTime, eventData)
+        
         })
         //just throwing it in the console to make sure it works
         console.log(data.events[i].datetime_local);
