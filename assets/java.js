@@ -6,6 +6,8 @@ const clientSecret = 'client_secret=8eab9cae7143c435b6897a8ee23b044cc8152e61df06
 const openWeatherAPIKey = '853c7e45dec1706d5f746a46f8d87cf8'
 
 //variables to grab
+const sectionEl = document.createElement('section');
+const weatherContainer = document.getElementById('weather-container');
 const startDateContainer = document.getElementById("start-date")
 const endDateContainer = document.getElementById("end-date")
 const cityContainer = document.getElementById("city")
@@ -40,16 +42,7 @@ function fetchEventsByCity() {
             populateEvents(data)
         })
 
-    const paginationNext = document.querySelector(".pagination-next")
-    const paginationPrevious = document.querySelector(".pagination-previous")
-    paginationNext.addEventListener("click", function (event) {
-        page++
-        fetchEventsByCity()
-    })
-    paginationPrevious.addEventListener('click', function (event) {
-        page--
-        fetchEventsByCity()
-    })
+
 }
 // the event listner for the search button
 searchButton.addEventListener('click', function (event) {
@@ -64,8 +57,7 @@ searchButton.addEventListener('click', function (event) {
 
 //puts events on page
 function populateEvents(data) {
-    const sectionEl = document.createElement('section');
-    const weatherContainer = document.getElementById('weather-container');
+
 
     //getting all needed info from the events
     for (let i = 0; i < data.events.length; i++) {
@@ -138,7 +130,7 @@ function getWeatherByDate(lat, lon, eventDateTime) {
             }
             //logging what we got
             if (weatherForEventHour) {
-                console.log(weatherForEventHour);
+                populateWeather(weatherForEventHour)
             } else {
                 //if there isnt any data
                 console.log("Couldn't find weather data for the specified event hour.");
@@ -152,4 +144,36 @@ function extractHours(dateTime) {
 
     //returning the hours of the dt
     return dt.getHours();
+}
+
+//Event Listners for next page button
+const paginationNext = document.querySelector(".pagination-next")
+    const paginationPrevious = document.querySelector(".pagination-previous")
+    paginationNext.addEventListener("click", function (event) {
+        page++
+        console.log(sectionEl)
+        while (sectionEl.firstChild) {
+            sectionEl.removeChild(sectionEl.firstChild);
+        }
+        console.log(page)
+        fetchEventsByCity()
+    })
+    paginationPrevious.addEventListener('click', function (event) {
+        if (page > 1) {
+            page--;
+            while (sectionEl.firstChild) {
+                sectionEl.removeChild(sectionEl.firstChild);
+            }
+            console.log(page)
+            fetchEventsByCity();
+        } else {
+            console.log("You're on the first page, can't go back further!");
+        }
+    });
+    
+function populateWeather(weatherForEventHour){
+let weatherDescription = weatherForEventHour.weather[0].description
+sectionEl.setAttribute('class', 'weather-for-event')
+sectionEl.textContent = weatherDescription
+weatherContainer.appendChild(sectionEl)
 }
