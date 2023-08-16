@@ -7,7 +7,8 @@ const openWeatherAPIKey = '853c7e45dec1706d5f746a46f8d87cf8'
 
 //variables to grab
 const sectionEl = document.createElement('section');
-const weatherContainer = document.getElementById('weather-container');
+const weatherContainer = document.getElementById('weather-container')
+const eventContainer = document.getElementById('event-container');
 const startDateContainer = document.getElementById("start-date")
 const endDateContainer = document.getElementById("end-date")
 const cityContainer = document.getElementById("city")
@@ -86,12 +87,12 @@ function populateEvents(data) {
         console.log(data.events[i].datetime_local);
     }
     //appending the unoredered list to the weather container, need britanny to help me make it look good
-    weatherContainer.appendChild(sectionEl);
+    eventContainer.appendChild(sectionEl);
 }
 //gets coordinates from city name
 function getCoords(cityName, eventDateTime) {
     //fetching the coords, passing eventDateTime to push through in a seperate function
-    fetch(`http://api.openweathermap.org/geo/1.0/direct?q=${cityName}&appid=${openWeatherAPIKey}`)
+    fetch(`https://api.openweathermap.org/geo/1.0/direct?q=${cityName}&appid=${openWeatherAPIKey}`)
         .then(function (response) {
             return response.json();
         })
