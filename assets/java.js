@@ -65,7 +65,7 @@ searchButton.addEventListener('click', function (event) {
 //puts events on page
 function populateEvents(data) {
 
-eventContainerSectionEl.setAttribute('class','event-holder')
+    eventContainerSectionEl.setAttribute('class', 'event-holder')
     //getting all needed info from the events
     for (let i = 0; i < data.events.length; i++) {
         //setting name and time
@@ -74,7 +74,7 @@ eventContainerSectionEl.setAttribute('class','event-holder')
         let eventData = data.events[i]
 
         //creating the list item and adding text content
-        let h1El = document.createElement('h1');
+        let h1El = document.createElement('section');
         let h2El = document.createElement('h2');
         h1El.textContent = eventName;
         h1El.setAttribute('class', 'event-name')
@@ -82,8 +82,8 @@ eventContainerSectionEl.setAttribute('class','event-holder')
         h2El.setAttribute('class', 'event-date-time')
         h1El.setAttribute('class', 'searched-events')
         //adding the list item to the unordered list, we may change this later to be a section of its own instead of list item
+        h1El.appendChild(h2El)
         eventContainerSectionEl.appendChild(h1El);
-        eventContainerSectionEl.appendChild(h2El)
 
         // adding event listner to each of the li's.
         h1El.addEventListener('click', function () {
@@ -92,7 +92,7 @@ eventContainerSectionEl.setAttribute('class','event-holder')
                 weatherContainerSectionEl.removeChild(weatherContainerSectionEl.firstChild);
             }
             return getCoords(data.events[i].venue.city, eventDateTime, eventData)
-        
+
         })
         //just throwing it in the console to make sure it works
         console.log(data.events[i].datetime_local);
@@ -160,76 +160,79 @@ function extractHours(dateTime) {
 
 //Event Listners for next page button
 const paginationNext = document.querySelector(".pagination-next")
-    const paginationPrevious = document.querySelector(".pagination-previous")
-    paginationNext.addEventListener("click", function (event) {
-        page++
-        console.log(eventContainerSectionEl)
+const pageNumber = document.getElementById("page-number")
+const paginationPrevious = document.querySelector(".pagination-previous")
+paginationNext.addEventListener("click", function (event) {
+    page++
+    pageNumber.textContent = page
+    console.log(eventContainerSectionEl)
+    while (eventContainerSectionEl.firstChild) {
+        eventContainerSectionEl.removeChild(eventContainerSectionEl.firstChild);
+    }
+    console.log(page)
+    fetchEventsByCity()
+})
+//event listner for previous button
+paginationPrevious.addEventListener('click', function (event) {
+    if (page > 1) {
+        page--;
+        pageNumber.textContent = page
         while (eventContainerSectionEl.firstChild) {
             eventContainerSectionEl.removeChild(eventContainerSectionEl.firstChild);
         }
         console.log(page)
-        fetchEventsByCity()
-    })
-    //event listner for previous button
-    paginationPrevious.addEventListener('click', function (event) {
-        if (page > 1) {
-            page--;
-            while (eventContainerSectionEl.firstChild) {
-                eventContainerSectionEl.removeChild(eventContainerSectionEl.firstChild);
-            }
-            console.log(page)
-            fetchEventsByCity();
-        } else {
-            console.log("You're on the first page, can't go back further!");
-        }
-    });
-    
-function populateWeather(weatherForEventHour, eventData){
-let weatherDescription = weatherForEventHour.weather[0].description
-let weatherTemp = weatherForEventHour.temp
-let windSpeed = weatherForEventHour.wind_speed
-let eventName = eventData.title
-let eventTime = eventData.datetime_local.split('T')
-let eventURL = eventData.url
-let icon =weatherForEventHour.weather[0].icon
-let iconUrl = `https://openweathermap.org/img/wn/${icon}@2x.png`;
+        fetchEventsByCity();
+    } else {
+        console.log("You're on the first page, can't go back further!");
+    }
+});
 
-const eventEl1 = document.createElement('p')
-const eventEl2 = document.createElement('p')
-const eventEl3 = document.createElement('p')
-const imgEl = document.createElement('img');
-const weatherEl1 = document.createElement('p')
-const weatherEl2 = document.createElement('p')
-const weatherEl3 = document.createElement('p')
+function populateWeather(weatherForEventHour, eventData) {
+    let weatherDescription = weatherForEventHour.weather[0].description
+    let weatherTemp = weatherForEventHour.temp
+    let windSpeed = weatherForEventHour.wind_speed
+    let eventName = eventData.title
+    let eventTime = eventData.datetime_local.split('T')
+    let eventURL = eventData.url
+    let icon = weatherForEventHour.weather[0].icon
+    let iconUrl = `https://openweathermap.org/img/wn/${icon}@2x.png`;
 
-console.log(weatherForEventHour)
-console.log(eventData)
-console.log(eventURL)
+    const eventEl1 = document.createElement('p')
+    const eventEl2 = document.createElement('p')
+    const eventEl3 = document.createElement('p')
+    const imgEl = document.createElement('img');
+    const weatherEl1 = document.createElement('p')
+    const weatherEl2 = document.createElement('p')
+    const weatherEl3 = document.createElement('p')
+
+    console.log(weatherForEventHour)
+    console.log(eventData)
+    console.log(eventURL)
 
 
-weatherContainerSectionEl.setAttribute('class', 'weather-for-event')
-eventEl1.setAttribute('id', 'event-name-popup')
-eventEl2.setAttribute('id', 'element-time-popup')
-eventEl3.setAttribute('id', 'element-url-popup')
-imgEl.setAttribute("src", iconUrl);
-weatherEl1.setAttribute('id', 'weather-description')
-weatherEl2.setAttribute('id', 'weather-temp')
-weatherEl3.setAttribute('id', 'wind-speed')
+    weatherContainerSectionEl.setAttribute('class', 'weather-for-event')
+    eventEl1.setAttribute('id', 'event-name-popup')
+    eventEl2.setAttribute('id', 'element-time-popup')
+    eventEl3.setAttribute('id', 'element-url-popup')
+    imgEl.setAttribute("src", iconUrl);
+    weatherEl1.setAttribute('id', 'weather-description')
+    weatherEl2.setAttribute('id', 'weather-temp')
+    weatherEl3.setAttribute('id', 'wind-speed')
 
-eventEl1.textContent = eventName
-eventEl2.textContent = eventTime
-eventEl3.textContent = eventURL
-weatherEl1.textContent = weatherDescription
-weatherEl2.textContent = weatherTemp
-weatherEl3.textContent = windSpeed
+    eventEl1.textContent = eventName
+    eventEl2.textContent = eventTime
+    eventEl3.textContent = eventURL
+    weatherEl1.textContent = weatherDescription
+    weatherEl2.textContent = weatherTemp
+    weatherEl3.textContent = windSpeed
 
-weatherContainerSectionEl.appendChild(eventEl1)
-weatherContainerSectionEl.appendChild(eventEl2)
-weatherContainerSectionEl.appendChild(eventEl3)
-weatherContainerSectionEl.appendChild(eventEl3)
-weatherContainerSectionEl.appendChild(imgEl)
-weatherContainerSectionEl.appendChild(weatherEl1)
-weatherContainerSectionEl.appendChild(weatherEl2)
-weatherContainerSectionEl.appendChild(weatherEl3)
-weatherContainer.appendChild(weatherContainerSectionEl)
+    weatherContainerSectionEl.appendChild(eventEl1)
+    weatherContainerSectionEl.appendChild(eventEl2)
+    weatherContainerSectionEl.appendChild(eventEl3)
+    weatherContainerSectionEl.appendChild(eventEl3)
+    weatherContainerSectionEl.appendChild(imgEl)
+    weatherContainerSectionEl.appendChild(weatherEl1)
+    weatherContainerSectionEl.appendChild(weatherEl2)
+    weatherContainerSectionEl.appendChild(weatherEl3)
+    weatherContainer.appendChild(weatherContainerSectionEl)
 }
