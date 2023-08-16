@@ -91,7 +91,7 @@ function populateEvents(data) {
 //gets coordinates from city name
 function getCoords(cityName, eventDateTime) {
     //fetching the coords, passing eventDateTime to push through in a seperate function
-    fetch(`http://api.openweathermap.org/geo/1.0/direct?q=${cityName}&appid=${openWeatherAPIKey}`)
+    fetch(`https://api.openweathermap.org/geo/1.0/direct?q=${cityName}&appid=${openWeatherAPIKey}`)
         .then(function (response) {
             return response.json();
         })
@@ -176,4 +176,12 @@ let weatherDescription = weatherForEventHour.weather[0].description
 sectionEl.setAttribute('class', 'weather-for-event')
 sectionEl.textContent = weatherDescription
 weatherContainer.appendChild(sectionEl)
+
+
+
+
+
+
 }
+
+
