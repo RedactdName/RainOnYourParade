@@ -174,7 +174,26 @@ const paginationNext = document.querySelector(".pagination-next")
     
 function populateWeather(weatherForEventHour){
 let weatherDescription = weatherForEventHour.weather[0].description
+let weatherTemp = weatherForEventHour.temp
+let windSpeed = weatherForEventHour.wind_speed
+
+const pEl1 = document.createElement('p')
+const pEl2 = document.createElement('p')
+const pEl3 = document.createElement('p')
+
+console.log(weatherForEventHour)
+console.log(weatherForEventHour.temp)
 sectionEl.setAttribute('class', 'weather-for-event')
-sectionEl.textContent = weatherDescription
+pEl1.setAttribute('id', 'weather-description')
+pEl2.setAttribute('id', 'weather-temp')
+pEl3.setAttribute('id', 'wind-speed')
+
+pEl1.textContent = weatherDescription
+pEl2.textContent = weatherTemp
+pEl3.textContent = windSpeed
+
+sectionEl.appendChild(pEl1)
+sectionEl.appendChild(pEl2)
+sectionEl.appendChild(pEl3)
 weatherContainer.appendChild(sectionEl)
 }
