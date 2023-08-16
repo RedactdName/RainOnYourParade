@@ -3,16 +3,18 @@
     color: darkblue;
 }
 
+
 h1 {
     font-size: 4em;
     text-align: left;
-    padding-top: 20px;
+    padding-top: 20px; /*20px*/
     color: white;
     font-family: "agency fb";
     margin: 40px 0 40px;
     font-size: 30px;
     text-shadow: 2px 2px 4px #000000;
     font-family: 'Cherry Swash', cursive;
+    line-height: 1%;
 }
 
 /*added cloud icon*/
@@ -244,18 +246,39 @@ ul:before {
     /*how can we get the weather to display on the right instead of underneath populated text in #weather-container?*/
     list-style: none;
     position: absolute;
-    padding-inline: 2%;
+    padding-inline: 2%; 
     top: 37rem;
     left: 20rem;
     transform: translate(-72%, -40%);
     width: 25rem;
-    height: 50rem;
-    margin-top: 2rem;
+    height: 70rem; /*50*/
+    margin-top: 8rem; /*2rem*/
     color: lightslategrey;
     font-family: Arial, Helvetica, sans-serif;
     font-weight: bold;
+    font-size:medium;
     z-index: auto;
-    line-height: 150%;
+    line-height: 200%; /*150%*/
+    list-style-type:item;
+}
+
+#event-container {
+    list-style: none;
+    position: absolute;
+    padding-inline: 2%;
+    top: 25rem;
+    right: 20rem;
+    transform: translate(-72%, -40%);
+    width: 25rem;
+    height: 70rem;
+    margin-top: 35rem;
+    color: lightslategrey;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: bold;
+    font-size: medium;
+    z-index: auto;
+    line-height: 200%;
+    list-style-type: item;
 }
 
 ul.primary li a {
@@ -284,7 +307,9 @@ ul.sub {
 
 ul.sub li {
     float: none;
+    padding: 2px;
     margin: 0;
+    background-color: whitesmoke;
 }
 
 ul.sub li a {
@@ -361,26 +386,11 @@ ul.primary li:hover>a {
 
 
 
-
-
-
-
-
 body {
     font-size: 12px;
     font-family: sans-serif;
     background: #2c3e50;
 }
-
-/* h1 {
-    text-align:left;
-    margin: 40px 0 40px;
-    text-align: center;
-    font-size: 30px;
-    color: #ecf0f1;
-    text-shadow: 2px 2px 4px #000000;
-    font-family: 'Cherry Swash', cursive;
-} */
 
 p {
     position: absolute;
@@ -442,9 +452,9 @@ span {
     text-align: center;
     padding: 10px 12px;
     text-decoration: none;
-    font-weight: bold;
+    font-weight:bold;
     height: 2%;
-    width: 50%;
+    width: 20%; /*50%*/
 }
 
 #search-button:active {
@@ -453,6 +463,12 @@ span {
     box-shadow: 3px 2px 22px 1px rgba(0, 0, 0, 0.24);
     /* Lowering the shadow */
 }
+
+.top-events {
+    font-style:italic;
+    text-decoration-line: underline;
+}
+
 
 
 .footer {
