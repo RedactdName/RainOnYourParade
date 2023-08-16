@@ -1,5 +1,5 @@
 # RainOnYourParade
-Rain On Your Parade is an App to search upcoming events by city and the forecasted weather for the area they are occuring to pre-plan your outtings. 
+Rain On Your Parade is an App to search upcoming events by city and the forecasted weather for the area they are occuring in to pre-plan your outtings. 
 
 # Motivation
  There is a saying in Colorado “If you don’t like the weather, just wait five minutes” This app’s goal is help you better understand and prepare for what weather may be headed your way if you’re looking at doing anything outside.
