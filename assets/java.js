@@ -53,7 +53,7 @@ searchButton.addEventListener('click', function (event) {
     startDate = startDateContainer.value
     endDate = endDateContainer.value
     city = cityContainer.value
-
+    localStorageHandler()
     //removes events that are in there
     while (eventContainerSectionEl.firstChild) {
         eventContainerSectionEl.removeChild(eventContainerSectionEl.firstChild);
@@ -231,7 +231,14 @@ weatherContainer.appendChild(weatherContainerSectionEl)
 }
 
 function localStorageHandler() {
-    
-    localStorage.setItem('city', cityContainer.value)
+    var currentCity = cityContainer.value
+    var localStorageArray = [localStorage.getItem('city')]
+    localStorageArray.push(currentCity)
+    JSON.stringify([localStorageArray])
+    localStorage.setItem('city', localStorageArray)
+}
+
+function history() {
+    JSON.parse(localStorageArray)
     
 }
