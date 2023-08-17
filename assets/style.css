@@ -1,11 +1,11 @@
-.header {
+.animation {
     text-align: start;
     color: darkblue;
 }
 
 h1 {
     font-size: 4em;
-    text-align: left;
+    text-align: center;
     padding-top: 20px;
     color: white;
     font-family: "agency fb";
@@ -240,20 +240,42 @@ ul:before {
     margin-left: 20rem;
 }
 
+/*this should be where the events populate on page*/
+#event-container {
+    list-style-position: initial;
+    position: absolute;
+    padding-inline: 2%;
+    top: 25rem;
+    right: 20rem;
+    transform: translate(-72%, -40%);
+    width: 25rem;
+    height: 70rem;
+    margin-top: 17rem;
+    color: lightslategrey;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: bold;
+    font-size: 20px;
+    z-index: auto;
+    line-height: 200%;
+    line-break:strict;
+    cursor: pointer;
+}
+
+/*this should be where the weather populates on the page*/
 #weather-container {
-    /*how can we get the weather to display on the right instead of underneath populated text in #weather-container?*/
     list-style: none;
     position: absolute;
     padding-inline: 2%;
-    top: 37rem;
+    top: 37rem; /*37rem*/
     left: 20rem;
     transform: translate(-72%, -40%);
     width: 25rem;
     height: 50rem;
-    margin-top: 2rem;
+    margin-top: 2rem;/*2rem*/
     color: lightslategrey;
     font-family: Arial, Helvetica, sans-serif;
     font-weight: bold;
+    font-size: 50px;
     z-index: auto;
     line-height: 150%;
 }
@@ -261,16 +283,16 @@ ul:before {
 ul.primary li a {
     display: block;
     padding: 20px 30px;
-    border-right: 1px solid #3D3D3D;
 }
 
 ul.primary li:last-child a {
     border-right: none;
 }
 
-ul.primary li a:hover {
+ul.primary li a:hover { /*hover effect on nav bar*/
 
     color: #000;
+    background-color: white;
 }
 
 /* sub drop down list */
@@ -284,7 +306,9 @@ ul.sub {
 
 ul.sub li {
     float: none;
+    padding: 2px;
     margin: 0;
+    background-color: lightgrey;
 }
 
 ul.sub li a {
@@ -300,19 +324,23 @@ ul.sub li:last-child a {
 
 ul.sub li a:hover {
     color: #000;
-    background: #eeeeee;
+    background: lightgrey;
 }
 
 /* sub display*/
 /*makes dropdown list function*/
 ul.primary li:hover ul {
     display: block;
-    background: #fff;
+    background: lightgrey; /*background color on drop down list*/
 }
 
 
 ul.primary li:hover>a {
     color: #000;
+}
+
+iframe {
+    align-items: start;
 }
 
 /*add animation here*/
@@ -358,14 +386,6 @@ ul.primary li:hover>a {
 }
 
 
-
-
-
-
-
-
-
-
 body {
     font-size: 12px;
     font-family: sans-serif;
@@ -392,8 +412,24 @@ p {
     font-size: 16px;
 }
 
-span {
-    color: #2BD6B4;
+
+#weather-container {
+    list-style: none;
+    position: absolute;
+    padding-inline: 2%; 
+    top: 37rem;
+    left: 20rem;
+    transform: translate(-72%, -40%);
+    width: 25rem;
+    height: 70rem; /*50*/
+    margin-top: 8rem; /*2rem */
+    color: lightslategrey;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: bold;
+    font-size:medium;
+    z-index: auto;
+    line-height: 200%; /*150%*/
+    list-style-type:item;
 }
 
 
@@ -453,6 +489,19 @@ span {
     box-shadow: 3px 2px 22px 1px rgba(0, 0, 0, 0.24);
     /* Lowering the shadow */
 }
+
+/* .searched-events {
+    border-style:solid;
+    border-color: black;
+    overflow:hidden;
+} */
+
+/* .searched-events:active {
+    transform: scale(0.98); */
+    /* Scaling button to 0.98 to its original size */
+    /* box-shadow: 3px 2px 22px 1px rgba(0, 0, 0, 0.24); */
+    /* Lowering the shadow */
+/* } */
 
 
 .footer {
