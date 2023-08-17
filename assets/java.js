@@ -245,8 +245,8 @@ function populateWeather(weatherForEventHour, eventData) {
 }
 
 //handles the local storage stuff
+var currentCity = cityContainer.value;
 function localStorageHandler() {
-    var currentCity = cityContainer.value;
     if (currentCity == '') {
         currentCity = 'Denver';
     }
@@ -306,3 +306,46 @@ function historyHandler() {
 }
 
 document.addEventListener("DOMContentLoaded", historyHandler);
+
+// function historyNav(historyBtn) {
+//     historyBtn.addEventListener('click', function (event) {
+//         event.preventDefault()
+//         if (!event.target.matches('.btn-history')) {
+//             // return response.json()
+//         }
+//         var btn = event.target
+//         var currentCity = btn.getAttribute('data-search')
+//         fetchEventsByHistory(currentCity)
+//     })
+// }
+
+// fetchEventsByHistory(currentCity);
+// pulls the data back for that city
+// function fetchEventsByHistory(currentCity) {
+//     //getting values from containers
+//     let city = currentCity
+//     let perPage = 5
+//     let startDate = startDateContainer.value
+//     let endDate = endDateContainer.value
+//     //setting null check
+//     if (city == '') {
+//         city = 'Denver'
+//     }
+//     if (startDate == '') {
+//         startDate = '08-10-2023'
+//     }
+//     if (endDate == '') {
+//         endDate = '08-30-2023'
+//     }
+//     //fetching the events listing
+//     fetch(`https://api.seatgeek.com/2/events?venue.city=${city}&${clientId}&per_page=${perPage}&page=${page}&datetime_utc.gte=${startDate}&datetime_utc.lte=${endDate}`)
+//         .then(function (response) {
+//             return response.json()
+//         })
+//         .then(function (data) {
+//             // calling populate events function with the jsoned data
+//             populateEvents(data)
+//         })
+// function history() {
+//     JSON.parse(localStorageArray)
+// }
