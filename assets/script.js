@@ -245,8 +245,8 @@ function populateWeather(weatherForEventHour, eventData) {
 }
 
 //handles the local storage stuff
-var currentCity = cityContainer.value;
 function localStorageHandler() {
+    var currentCity = cityContainer.value;
     if (currentCity == '') {
         currentCity = 'Denver';
     }
@@ -307,7 +307,46 @@ function historyHandler() {
 
 document.addEventListener("DOMContentLoaded", historyHandler);
 
+//  //Getting searched city from the input under location as an array
+// var localStorageArray = []
+// function localStorageHandler() {
+//     var currentCity = cityContainer.value
+//     var localStorageArray = [localStorage.getItem('city')]
+//     localStorageArray.push(currentCity)
+//     JSON.stringify([localStorageArray])
+//     localStorage.setItem('city', localStorageArray)
+
+//     localStorage.setItem('city', JSON.stringify(localStorageArray))
+//     console.log(localStorageArray)
+//     historyStorage()
+// }
+// //Saving into localStorage  
+// var historyBtn = document.getElementById('history-btn')
+// function historyStorage() {
+//     localStorageArray = localStorage.getItem('city')
+//     if (localStorageArray) {
+//         localStorageArray = JSON.parse(localStorageArray)
+//         console.log(localStorageArray)
+//     }
+//     //For loop to go through array of localStorage data
+//     for (let i = 0; i < localStorageArray.length; i++) {
+//         var cityHistory = localStorageArray[i]
+//         var cityLi = document.createElement('li')
+//         var cityBtn = document.createElement('button')
+//         cityBtn.setAttribute('type', 'button')
+//         cityBtn.setAttribute('class', 'btn-history')
+//         cityBtn.setAttribute('data-search', localStorageArray[i])
+//         cityBtn.setAttribute('value', cityHistory)
+//         cityBtn.textContent = cityHistory
+//         cityLi.appendChild(cityBtn)
+//         historyBtn.appendChild(cityLi)
+//         console.log(cityBtn)
+//     }
+
+// }
+// // create function for submission link (line64  in html)
 // function historyNav(historyBtn) {
+
 //     historyBtn.addEventListener('click', function (event) {
 //         event.preventDefault()
 //         if (!event.target.matches('.btn-history')) {
@@ -319,9 +358,9 @@ document.addEventListener("DOMContentLoaded", historyHandler);
 //     })
 // }
 
-// fetchEventsByHistory(currentCity);
-// pulls the data back for that city
+// // pulls the data back for that city
 // function fetchEventsByHistory(currentCity) {
+
 //     //getting values from containers
 //     let city = currentCity
 //     let perPage = 5
@@ -346,6 +385,8 @@ document.addEventListener("DOMContentLoaded", historyHandler);
 //             // calling populate events function with the jsoned data
 //             populateEvents(data)
 //         })
+
+
 // function history() {
 //     JSON.parse(localStorageArray)
 // }
