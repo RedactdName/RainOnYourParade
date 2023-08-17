@@ -187,7 +187,9 @@ paginationPrevious.addEventListener('click', function (event) {
     }
 });
 
+//function called to populate weather, holds data for events to populate
 function populateWeather(weatherForEventHour, eventData) {
+    //variables for function
     let weatherDescription = weatherForEventHour.weather[0].description
     let weatherTemp = weatherForEventHour.temp
     let windSpeed = weatherForEventHour.wind_speed
@@ -197,6 +199,7 @@ function populateWeather(weatherForEventHour, eventData) {
     let icon = weatherForEventHour.weather[0].icon
     let iconUrl = `https://openweathermap.org/img/wn/${icon}@2x.png`;
 
+    //creating the elements I will need on the page
     const eventEl1 = document.createElement('p')
     const eventEl2 = document.createElement('p')
     const eventEl3 = document.createElement('p')
@@ -205,11 +208,13 @@ function populateWeather(weatherForEventHour, eventData) {
     const weatherEl2 = document.createElement('p')
     const weatherEl3 = document.createElement('p')
 
+
+    //console.log delete on full launch
     console.log(weatherForEventHour)
     console.log(eventData)
     console.log(eventURL)
 
-
+    //setting classes to make the formating easier
     weatherContainerSectionEl.setAttribute('class', 'weather-for-event')
     eventEl1.setAttribute('id', 'event-name-popup')
     eventEl2.setAttribute('id', 'element-time-popup')
@@ -219,6 +224,7 @@ function populateWeather(weatherForEventHour, eventData) {
     weatherEl2.setAttribute('id', 'weather-temp')
     weatherEl3.setAttribute('id', 'wind-speed')
 
+    //setting text content
     eventEl1.textContent = eventName
     eventEl2.textContent = eventTime
     eventEl3.textContent = eventURL
@@ -226,6 +232,7 @@ function populateWeather(weatherForEventHour, eventData) {
     weatherEl2.textContent = weatherTemp
     weatherEl3.textContent = windSpeed
 
+    //appending
     weatherContainerSectionEl.appendChild(eventEl1)
     weatherContainerSectionEl.appendChild(eventEl2)
     weatherContainerSectionEl.appendChild(eventEl3)
@@ -237,14 +244,54 @@ function populateWeather(weatherForEventHour, eventData) {
     weatherContainer.appendChild(weatherContainerSectionEl)
 }
 
+//handles the local storage stuff
 function localStorageHandler() {
-    var currentCity = cityContainer.value
-    var localStorageArray = [localStorage.getItem('city')]
-    localStorageArray.push(currentCity)
-    JSON.stringify([localStorageArray])
-    localStorage.setItem('city', localStorageArray)
+    var currentCity = cityContainer.value;
+    if (currentCity == '') {
+        currentCity = 'Denver';
+    }
+
+    // Get item from local storage
+    var storedData = localStorage.getItem('city');
+    var localStorageArray;
+
+    // Check if storedData is not null and calls function to make sure data is valid
+    if (storedData && isValidJSON(storedData)) {
+        localStorageArray = JSON.parse(storedData);
+    } else {
+        // If not valid or not set, default to an empty array
+        localStorageArray = [];
+    }
+
+    // If there are already 5 cities, remove the first
+    if (localStorageArray.length >= 5) {
+        localStorageArray.shift();
+    }
+
+    // Push the current city to the array
+    localStorageArray.push(currentCity);
+
+    // Convert array to string and save back to localStorage
+    localStorage.setItem('city', JSON.stringify(localStorageArray));
+
+    return localStorageArray;
 }
 
-function history() {
-    JSON.parse(localStorageArray)
+//function to check if a string is valid JSON
+function isValidJSON(str) {
+    //how this works I have no clue
+    try {
+        JSON.parse(str);
+        return true;
+    } catch (e) {
+        return false;
+    }
 }
+
+//this is where we should append citys
+function history() {
+    var cities = localStorageHandler();
+    console.log(cities);
+}
+
+document.addEventListener("DOMContentLoaded", history);
