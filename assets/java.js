@@ -74,8 +74,8 @@ function populateEvents(data) {
         let eventData = data.events[i]
 
         //creating the list item and adding text content
-        let h1El = document.createElement('section');
-        let h2El = document.createElement('h2');
+        let h1El = document.createElement('ul');
+        let h2El = document.createElement('li');
         h1El.textContent = eventName;
         h1El.setAttribute('class', 'event-name')
         h2El.textContent = eventDateTime.split('T')
