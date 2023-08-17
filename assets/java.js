@@ -53,7 +53,7 @@ searchButton.addEventListener('click', function (event) {
     startDate = startDateContainer.value
     endDate = endDateContainer.value
     city = cityContainer.value
-    localStorageHandler()
+    historyHandler()
     //removes events that are in there
     while (eventContainerSectionEl.firstChild) {
         eventContainerSectionEl.removeChild(eventContainerSectionEl.firstChild);
@@ -200,13 +200,13 @@ function populateWeather(weatherForEventHour, eventData) {
     let iconUrl = `https://openweathermap.org/img/wn/${icon}@2x.png`;
 
     //creating the elements I will need on the page
-    const eventEl1 = document.createElement('p')
-    const eventEl2 = document.createElement('p')
-    const eventEl3 = document.createElement('p')
+    const eventEl1 = document.createElement('li')
+    const eventEl2 = document.createElement('li')
+    const eventEl3 = document.createElement('li')
     const imgEl = document.createElement('img');
-    const weatherEl1 = document.createElement('p')
-    const weatherEl2 = document.createElement('p')
-    const weatherEl3 = document.createElement('p')
+    const weatherEl1 = document.createElement('li')
+    const weatherEl2 = document.createElement('li')
+    const weatherEl3 = document.createElement('li')
 
 
     //console.log delete on full launch
@@ -289,9 +289,20 @@ function isValidJSON(str) {
 }
 
 //this is where we should append citys
-function history() {
+function historyHandler() {
     var cities = localStorageHandler();
     console.log(cities);
+    var listItem1 = document.querySelector("a[href='list-item-1']");
+    var listItem2 = document.querySelector("a[href='list-item-2']");
+    var listItem3 = document.querySelector("a[href='list-item-3']");
+    var listItem4 = document.querySelector("a[href='list-item-4']");
+    var listItem5 = document.querySelector("a[href='list-item-5']");
+
+    listItem1.textContent = cities[0]
+    listItem2.textContent = cities[1]
+    listItem3.textContent = cities[2]
+    listItem4.textContent = cities[3]
+    listItem5.textContent = cities[4]
 }
 
-document.addEventListener("DOMContentLoaded", history);
+document.addEventListener("DOMContentLoaded", historyHandler);
