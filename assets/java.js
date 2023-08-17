@@ -53,7 +53,7 @@ searchButton.addEventListener('click', function (event) {
     startDate = startDateContainer.value
     endDate = endDateContainer.value
     city = cityContainer.value
-    localStorageHandler()
+    historyHandler()
     //removes events that are in there
     while (eventContainerSectionEl.firstChild) {
         eventContainerSectionEl.removeChild(eventContainerSectionEl.firstChild);
@@ -74,8 +74,8 @@ function populateEvents(data) {
         let eventData = data.events[i]
 
         //creating the list item and adding text content
-        let h1El = document.createElement('section');
-        let h2El = document.createElement('h2');
+        let h1El = document.createElement('ul');
+        let h2El = document.createElement('li');
         h1El.textContent = eventName;
         h1El.setAttribute('class', 'event-name')
         h2El.textContent = eventDateTime.split('T')
@@ -187,7 +187,9 @@ paginationPrevious.addEventListener('click', function (event) {
     }
 });
 
+//function called to populate weather, holds data for events to populate
 function populateWeather(weatherForEventHour, eventData) {
+    //variables for function
     let weatherDescription = weatherForEventHour.weather[0].description
     let weatherTemp = weatherForEventHour.temp
     let windSpeed = weatherForEventHour.wind_speed
@@ -197,19 +199,22 @@ function populateWeather(weatherForEventHour, eventData) {
     let icon = weatherForEventHour.weather[0].icon
     let iconUrl = `https://openweathermap.org/img/wn/${icon}@2x.png`;
 
-    const eventEl1 = document.createElement('p')
-    const eventEl2 = document.createElement('p')
-    const eventEl3 = document.createElement('p')
+    //creating the elements I will need on the page
+    const eventEl1 = document.createElement('li')
+    const eventEl2 = document.createElement('li')
+    const eventEl3 = document.createElement('li')
     const imgEl = document.createElement('img');
-    const weatherEl1 = document.createElement('p')
-    const weatherEl2 = document.createElement('p')
-    const weatherEl3 = document.createElement('p')
+    const weatherEl1 = document.createElement('li')
+    const weatherEl2 = document.createElement('li')
+    const weatherEl3 = document.createElement('li')
 
+
+    //console.log delete on full launch
     console.log(weatherForEventHour)
     console.log(eventData)
     console.log(eventURL)
 
-
+    //setting classes to make the formating easier
     weatherContainerSectionEl.setAttribute('class', 'weather-for-event')
     eventEl1.setAttribute('id', 'event-name-popup')
     eventEl2.setAttribute('id', 'element-time-popup')
@@ -219,6 +224,7 @@ function populateWeather(weatherForEventHour, eventData) {
     weatherEl2.setAttribute('id', 'weather-temp')
     weatherEl3.setAttribute('id', 'wind-speed')
 
+    //setting text content
     eventEl1.textContent = eventName
     eventEl2.textContent = eventTime
     eventEl3.textContent = eventURL
@@ -226,6 +232,7 @@ function populateWeather(weatherForEventHour, eventData) {
     weatherEl2.textContent = weatherTemp
     weatherEl3.textContent = windSpeed
 
+    //appending
     weatherContainerSectionEl.appendChild(eventEl1)
     weatherContainerSectionEl.appendChild(eventEl2)
     weatherContainerSectionEl.appendChild(eventEl3)
@@ -236,81 +243,66 @@ function populateWeather(weatherForEventHour, eventData) {
     weatherContainerSectionEl.appendChild(weatherEl3)
     weatherContainer.appendChild(weatherContainerSectionEl)
 }
-//Getting searched city from the input under location as an array
-var localStorageArray = []
+
+//handles the local storage stuff
 function localStorageHandler() {
-    var currentCity = cityContainer.value
-    localStorageArray.push(currentCity)
-  
-    localStorage.setItem('city', JSON.stringify(localStorageArray))
-    console.log(localStorageArray)
-    historyStorage()
-}
-//Saving into localStorage  
-var historyBtn = document.getElementById('history-btn')
-function historyStorage() {
-    localStorageArray = localStorage.getItem('city')
-    if (localStorageArray) {
-        localStorageArray = JSON.parse(localStorageArray)
-        console.log(localStorageArray)
+    var currentCity = cityContainer.value;
+    if (currentCity == '') {
+        currentCity = 'Denver';
     }
-    //For loop to go through array of localStorage data
-    for (let i = 0; i < localStorageArray.length; i++) {
-        var cityHistory = localStorageArray[i]
-        var cityLi = document.createElement('li')
-        var cityBtn = document.createElement('button')
-        cityBtn.setAttribute('type', 'button')
-        cityBtn.setAttribute('class', 'btn-history')
-        cityBtn.setAttribute('data-search', localStorageArray[i])
-        cityBtn.setAttribute('value', cityHistory)
-        cityBtn.textContent = cityHistory
-        cityLi.appendChild(cityBtn)
-        historyBtn.appendChild(cityLi)
-        console.log(cityBtn)
+
+    // Get item from local storage
+    var storedData = localStorage.getItem('city');
+    var localStorageArray;
+
+    // Check if storedData is not null and calls function to make sure data is valid
+    if (storedData && isValidJSON(storedData)) {
+        localStorageArray = JSON.parse(storedData);
+    } else {
+        // If not valid or not set, default to an empty array
+        localStorageArray = [];
     }
-   
-}
-// create function for submission link (line64  in html)
-function historyNav(historyBtn) {
-    
-    historyBtn.addEventListener('click', function (event) {
-        event.preventDefault()
-        if (!event.target.matches('.btn-history')) {
-            // return response.json()
-        }
-        var btn = event.target
-        var currentCity = btn.getAttribute('data-search')
-        fetchEventsByHistory(currentCity)
-    })
+
+    // If there are already 5 cities, remove the first
+    if (localStorageArray.length >= 5) {
+        localStorageArray.shift();
+    }
+
+    // Push the current city to the array
+    localStorageArray.push(currentCity);
+
+    // Convert array to string and save back to localStorage
+    localStorage.setItem('city', JSON.stringify(localStorageArray));
+
+    return localStorageArray;
 }
 
-// pulls the data back for that city
-function fetchEventsByHistory(currentCity) {
-
-    //getting values from containers
-    let city = currentCity
-    let perPage = 5
-    let startDate = startDateContainer.value
-    let endDate = endDateContainer.value
-    //setting null check
-    if (city == '') {
-        city = 'Denver'
+//function to check if a string is valid JSON
+function isValidJSON(str) {
+    //how this works I have no clue
+    try {
+        JSON.parse(str);
+        return true;
+    } catch (e) {
+        return false;
     }
-    if (startDate == '') {
-        startDate = '08-10-2023'
-    }
-    if (endDate == '') {
-        endDate = '08-30-2023'
-    }
-    //fetching the events listing
-    fetch(`https://api.seatgeek.com/2/events?venue.city=${city}&${clientId}&per_page=${perPage}&page=${page}&datetime_utc.gte=${startDate}&datetime_utc.lte=${endDate}`)
-        .then(function (response) {
-            return response.json()
-        })
-        .then(function (data) {
-            // calling populate events function with the jsoned data
-            populateEvents(data)
-        })
-
-
 }
+
+//this is where we should append citys
+function historyHandler() {
+    var cities = localStorageHandler();
+    console.log(cities);
+    var listItem1 = document.querySelector("a[href='list-item-1']");
+    var listItem2 = document.querySelector("a[href='list-item-2']");
+    var listItem3 = document.querySelector("a[href='list-item-3']");
+    var listItem4 = document.querySelector("a[href='list-item-4']");
+    var listItem5 = document.querySelector("a[href='list-item-5']");
+
+    listItem1.textContent = cities[0]
+    listItem2.textContent = cities[1]
+    listItem3.textContent = cities[2]
+    listItem4.textContent = cities[3]
+    listItem5.textContent = cities[4]
+}
+
+document.addEventListener("DOMContentLoaded", historyHandler);
