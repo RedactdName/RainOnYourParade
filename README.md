@@ -26,7 +26,7 @@ This app requires no installation.
 It is accessable through its URL:
 https://redactdname.github.io/RainOnYourParade/
 
-![Screenshot of homepage with map](./assets/Screenshot%202023-08-17%20at%205.02.40%20PM.png "Rain On Your Parade")
+![Screenshot of homepage with map](./assets/ScreenshotWithMap.png "Rain On Your Parade")
 
 # Sources
 OpenWeatherMap API - forecast
