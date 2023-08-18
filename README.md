@@ -17,8 +17,9 @@ so that I can plan accordingly
 It is done when I can search for a city's upcoming events
 It is done when the weather for that city populates when I select an event
 
+
 # Demonstration
-(Screenshot or GIF)
+![Screenshot of homepage with map](./assets/ScreenshotWithMap.png "Rain On Your Parade")
 
 # Installation
 This app requires no installation. 
@@ -26,7 +27,6 @@ This app requires no installation.
 It is accessable through its URL:
 https://redactdname.github.io/RainOnYourParade/
 
-![Screenshot of homepage with map](./assets/ScreenshotWithMap.png "Rain On Your Parade")
 
 # Sources
 OpenWeatherMap API - forecast
